@@ -1,0 +1,70 @@
+[user]
+	email = elyscape@gmail.com
+	name = Eli Young
+[core]
+	editor = vim
+[diff]
+	indentHeuristic = true
+	mnemonicPrefix = true
+	tool = p4merge
+[init]
+	defaultBranch = main
+[merge]
+	defaultToUpstream = true
+	tool = p4merge
+[mergetool]
+	keepBackup = false
+	keepTemporaries = false
+[rebase]
+	autosquash = true
+[push]
+	autoSetupRemote = true
+	default = upstream
+[pull]
+	ff = only
+[fetch]
+	prune = true
+	writeCommitGraph = true
+[log]
+	mailmap = true
+[alias]
+	ai = add --intent-to-add
+	ap = add -p
+	bd = branch -d
+	bdd = branch -D
+	bm = branch -m
+	ca = commit --amend
+	cac = commit --amend -CHEAD
+	cam = commit --amend -m
+	car = commit --amend -CHEAD --reset-author
+	cf = commit --fixup
+	cm = commit -m
+	co = checkout
+	cob = checkout -b
+	dc = diff --cached
+	dt = difftool
+	dtc = difftool --cached
+	fa = fetch --all
+	lf = log FETCH_HEAD
+	mt = mergetool
+	pf = push --force-with-lease
+	pt = push --tags
+	pu = !"git pull upstream \"${1-$(git rev-parse --abbrev-ref HEAD)}\";:"
+	pushup = !"git push -u \"${1-origin}\" HEAD;:"
+	rau = remote add upstream
+	rb = rebase
+	rbu = !"git rebase upstream/\"${1-$(git rev-parse --abbrev-ref HEAD)}\";:"
+	rh = reset --hard
+	ss = -c status.submodulesummary=true status
+	whitespace = !git --paginate diff-tree --check $(git hash-object -t tree /dev/null) HEAD
+[advice]
+	resolveConflict = false
+	statusHints = false
+[transfer]
+	fsckObjects = true
+[hub]
+	protocol = https
+[includeIf "gitdir:~/.vim/bundle/matchit.zip/"]
+	path = vim-plugin-fix/gitconfig
+[includeIf "gitdir:~/.vim/bundle/restore_view.vim/"]
+	path = vim-plugin-fix/gitconfig
