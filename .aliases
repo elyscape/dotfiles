@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-if [[ -f "${HOME}/.aliases.local" ]]; then
+if [[ -r "${HOME}/.aliases.os" ]]; then
+	. "${HOME}/.aliases.os"
+fi
+
+if [[ -r "${HOME}/.aliases.local" ]]; then
 	. "${HOME}/.aliases.local"
 fi
 
 alias chmox='chmod'
 
 alias chownme='chown "${USER}:${GROUPS[0]}"'
+alias chownrme='chown -R "${USER}:${GROUPS[0]}"'
 alias schownme='sudo chown "${USER}:${GROUPS[0]}"'
+alias schownrme='sudo chown -R "${USER}:${GROUPS[0]}"'
 
 if ! alias rm &>/dev/null; then
 	alias rm='rm -i'
@@ -67,7 +73,7 @@ lfile() {
 	fi
 
 	for curfile in *; do
-		if [[ "$curfile" > "$lastfile" ]] && [[ -f "$curfile" ]]; then
+		if [[ "$curfile" > "$lastfile" && -f "$curfile" ]]; then
 			lastfile="$curfile"
 		fi
 	done
@@ -75,91 +81,20 @@ lfile() {
 	"$@" "$lastfile"
 }
 
-if [[ "$(uname -s)" == 'Darwin' ]]; then
-	alias start='open'
-
-	if hash pstree &>/dev/null; then
-		alias pstree='pstree -g 3'
-	fi
-
-	if hash brew &>/dev/null; then
-		alias brwe='brew'
-		alias brewup='brew upgrade --formula'
-	fi
-
-	if hash docker &>/dev/null; then
-		alias docker-reclaim='docker run --rm --privileged --pid=host docker/desktop-reclaim-space'
-		alias docker-host='docker run --rm --privileged --pid=host -it centos:7 nsenter -t 1 -m -u -n -i sh'
-	fi
-
-	alias apfs.util='/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util'
-fi
-
-# dirsize
-if [[ "$(uname -s)" == 'Darwin' ]]; then
-	dirsize() {
-		local target
-		if [[ "$#" -ne 1 ]]; then
-			echo 'Usage: dirsize directory' >&2
-			return 64
-		fi
-		target="$1"
-
-		if [[ ! -e "$target" ]]; then
-			echo "dirsize: ${target}: No such file or directory"
-			return 1
-		fi
-
-		/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -S "$target" |
-			sed -E 's/.*total size: ([0-9]*) .*/\1/' |
-			numfmt --to=iec-i --suffix=B
-	}
-else
-	dirsize() {
-		local target
-		if [[ "$#" -ne 1 ]]; then
-			echo 'Usage: dirsize directory' >&2
-			return 64
-		fi
-		target="$1"
-
-		if [[ ! -e "$target" ]]; then
-			echo "dirsize: ${target}: No such file or directory"
-			return 1
-		elif [[ ! -r "$target" ]]; then
-			echo "dirsize: ${target}: Permission denied"
-			return 1
-		fi
-
-		du -s "$target" |
-			sed 's/\t.*.//' |
-			numfmt --from-unit=512 --to=iec-i --suffix=B
-	}
-fi
-complete -d dirsize
-
 # shellcheck disable=SC2010
 {
-	if ls --help 2>&1 | grep 'GNU' -q; then
-		lsoptions='-F --color=auto --show-control-chars'
+	if ls --version |& grep 'GNU' -q; then
+		alias ls='ls -F --color=auto --show-control-chars'
 	else
-		lsoptions='-F -G'
+		alias ls='ls -F -G'
 	fi
 }
-# shellcheck disable=SC2139
-{
-	alias ls="\\ls ${lsoptions}"
-	alias ll="\\ls ${lsoptions} -l"
-	alias l.="\\ls ${lsoptions} -d .*"
-	alias ll.="\\ls ${lsoptions} -l -d .*"
-}
-unset lsoptions
 
-alias plint='puppet-lint --no-class_inherits_from_params_class-check --no-80chars-check'
+alias ll='ls -l'
+alias l.='ls -d .*'
+alias ll.='ll -d .*'
 
-alias nrun='npm run -s'
-
-if [[ ! "${BASH_VERSINFO[0]}" -ge 4 ]] || [[ -n "${BASH_COMPLETION_DISABLE:-}" ]]; then
+if [[ -n "${BASH_COMPLETION_DISABLE:-}" ]]; then
 	return 0
 fi
 

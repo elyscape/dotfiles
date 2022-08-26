@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+alias start='open'
+
+if hash pstree &>/dev/null; then
+	alias pstree='pstree -g 3'
+fi
+
+if [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then
+	alias tailscale=/Applications/Tailscale.app/Contents/MacOS/Tailscale
+fi
+
+alias prl_lsrm='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -R -u ~/Applications\ \(Parallels\)'
+
+if hash brew &>/dev/null; then
+	alias brwe='brew'
+	alias brewup='brew upgrade --formula'
+fi
+
+if hash docker &>/dev/null; then
+	alias docker-reclaim='docker run --rm --privileged --pid=host docker/desktop-reclaim-space'
+	alias docker-host='docker run --rm --privileged --pid=host -it fedora nsenter -t 1 -m -u -n -i sh'
+fi
+
+alias apfs.util='/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util'
+
+dirsize() {
+	local target
+	if [[ "$#" -ne 1 ]]; then
+		echo 'Usage: dirsize directory' >&2
+		return 64
+	fi
+	target="$1"
+
+	if [[ ! -e "$target" ]]; then
+		echo "dirsize: ${target}: No such file or directory"
+		return 1
+	fi
+
+	/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -S "$target" |
+		sed -E 's/.*total size: ([0-9]*) .*/\1/' |
+		numfmt --to=iec-i --suffix=B
+}
+complete -d dirsize

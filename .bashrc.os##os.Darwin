@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+	eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# If we're running from MacVim, don't bother with completions
+if [[ "$SHLVL" -eq 1 && -z "${TERM:-}" ]]; then
+	BASH_COMPLETION_DISABLE=1
+fi
+
+if [[
+	-r "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion" &&
+	-z "${BASH_COMPLETION_DISABLE:-}"
+]]; then
+	# shellcheck disable=SC2034
+	BASH_COMPLETION_COMPAT_DIR="${HOMEBREW_PREFIX}/etc/bash_completion.d"
+	source "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion"
+fi
+
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1

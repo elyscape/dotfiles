@@ -9,7 +9,7 @@ fi
 ITERM_DIR="${HOME}/.iterm2"
 PREFS_PATH="$(defaults read com.googlecode.iterm2 PrefsCustomFolder || true)"
 
-if [[ -d "$ITERM_DIR" && "$PREFS_PATH" = "$ITERM_DIR" ]]; then
+if [[ -d "$ITERM_DIR" && "$PREFS_PATH" == "$ITERM_DIR" ]]; then
 	exit
 fi
 
