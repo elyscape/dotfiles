@@ -332,7 +332,6 @@ augroup END
 
 if $USER ==# 'root'
   set nomodeline
-  let g:skipview_files = ['']
 endif
 
 set viminfo+=n~/.viminfo
