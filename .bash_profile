@@ -9,14 +9,15 @@ if [[ -f "${HOME}/.bash_profile.local" ]]; then
 	. "${HOME}/.bash_profile.local"
 fi
 
-if hash gvimf &>/dev/null; then
-	EDITOR='gvimf'
-elif hash gvim &>/dev/null; then
-	EDITOR='gvim -f'
-else
-	EDITOR='vim'
+export EDITOR='vim'
+
+if [[ "$UID" -ne 0 ]]; then
+	if hash gvimf &>/dev/null; then
+		EDITOR='gvimf'
+	elif hash gvim &>/dev/null; then
+		EDITOR='gvim -f'
+	fi
 fi
-export EDITOR
 
 if hash rbenv &>/dev/null; then
 	eval "$(rbenv init -)"
