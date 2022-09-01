@@ -13,12 +13,11 @@ if [[ "$SHLVL" -eq 1 && -z "${TERM:-}" ]]; then
 fi
 
 if [[
-	-r "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion" &&
+	-r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" &&
 	-z "${BASH_COMPLETION_DISABLE:-}"
 ]]; then
 	# shellcheck disable=SC2034
-	BASH_COMPLETION_COMPAT_DIR="${HOMEBREW_PREFIX}/etc/bash_completion.d"
-	source "${HOMEBREW_PREFIX}/share/bash-completion/bash_completion"
+	source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
 
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
