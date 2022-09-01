@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-declare -A COMPAL_OVERRIDES
-declare -a COMPAL_IGNORE_ALIASES
+declare -A __compal__overrides
+declare -a __compal__ignore_aliases
 
 if [[ -r "${HOME}/.aliases.os" ]]; then
 	. "${HOME}/.aliases.os"
@@ -101,25 +101,28 @@ if [[ -n "${BASH_COMPLETION_DISABLE:-}" ]]; then
 	return 0
 fi
 
-COMPAL_AUTO_UNMASK='1'
-source "${HOME}/.config/yadm/complete-alias/complete_alias"
+# shellcheck disable=SC1094,SC2034
+{
+	COMPAL_AUTO_UNMASK='1'
+	source "${HOME}/.config/yadm/complete-alias/complete_alias"
+}
 
 # alias completion overrides
 __compal__get_alias_body() {
-	local cmd; cmd="$1"
-
+	local cmd="$1"
 	local body; body="$(alias "$cmd")"
-	body="${COMPAL_OVERRIDES[${cmd}]:-${body}}"
+
+	body="${__compal__overrides[${cmd}]:-${body}}"
 	echo "${body#*=}" | command xargs
 }
 
 alias_completion() {
-	local aliases_def="$(declare -p BASH_ALIASES)"
+	local aliases_def ignored
+	aliases_def="$(declare -p BASH_ALIASES)"
 	local -A aliases="${aliases_def#*=}"
-	local ignored
 
-	for ignored in "${COMPAL_IGNORE_ALIASES[@]}"; do
-		unset aliases["$ignored"]
+	for ignored in "${__compal__ignore_aliases[@]}"; do
+		unset "aliases[${ignored}]"
 	done
 
 	complete -F _complete_alias "${!aliases[@]}"
