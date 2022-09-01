@@ -1,0 +1,3 @@
+[submodule ".config/yadm/complete-alias"]
+	path = .config/yadm/complete-alias
+	url = https://github.com/cykerway/complete-alias.git
