@@ -249,6 +249,7 @@ let g:EditorConfig_exclude_patterns =
       \   'fugitive://.*',
       \   '.*\.git[\\/].*EDITMSG',
       \   '.*\.git[\\/]config',
+      \   '.*\.#override.*',
       \ ]
 
 augroup CustomFileHandling
