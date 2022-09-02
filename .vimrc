@@ -40,16 +40,6 @@ unlet s:vimrc_local
 nmap <Leader>pu :PlugUpdate<CR>
 nmap <Leader>pg :PlugUpgrade<CR>
 
-if empty(glob('~/.vim/bundle/*'))
-  augroup InstallPlug
-    autocmd!
-
-    autocmd VimEnter * PlugInstall
-    autocmd VimEnter * source $MYVIMRC
-  augroup END
-  finish
-endif
-
 set omnifunc=syntaxcomplete#Complete
 augroup Completions
   autocmd!
