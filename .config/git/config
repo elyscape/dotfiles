@@ -3,13 +3,28 @@
 	name = Eli Young
 [core]
 	editor = vim
+	pager = delta
+[delta]
+	features = line-numbers navigate
+	line-numbers-minus-style = "#b30000"
+	line-numbers-plus-style = "#00b300"
+	line-numbers-zero-style = "#666666"
+	map-styles = \
+		bold purple => syntax "#631d4f", \
+		bold blue => syntax "#391c63", \
+		bold cyan => syntax "#19675f", \
+		bold yellow => syntax "#415926"
 [diff]
+	colorMoved = true
 	indentHeuristic = true
 	mnemonicPrefix = true
 	tool = p4merge
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
 [merge]
+	conflictStyle = diff3
 	defaultToUpstream = true
 	tool = p4merge
 [mergetool]
