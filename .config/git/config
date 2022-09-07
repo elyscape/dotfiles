@@ -66,7 +66,7 @@
 	pt = push --tags
 	pu = !"git pull upstream \"${1-$(git rev-parse --abbrev-ref HEAD)}\";:"
 	pushup = !"git push -u \"${1-origin}\" HEAD;:"
-	rau = remote add upstream
+	rau = !"git remote add -t \"$(git ls-remote -q --symref \"$1\" HEAD | sed -n '/^ref:/{s-^ref: refs/heads/--;s/\tHEAD//;p;}')\" upstream"
 	rb = rebase
 	rbu = !"git rebase upstream/\"${1-$(git rev-parse --abbrev-ref HEAD)}\";:"
 	rh = reset --hard
