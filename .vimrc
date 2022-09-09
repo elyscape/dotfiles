@@ -53,8 +53,6 @@ augroup Completions
   autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 augroup END
 
-highlight comment ctermfg=cyan
-
 set tabstop=2
 set expandtab
 set softtabstop=-1
