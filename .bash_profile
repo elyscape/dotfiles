@@ -17,8 +17,8 @@ if [[ "$(id -u)" -ne 0 ]]; then
 	fi
 fi
 
-if [[ -x /usr/bin/dircolors && -r "${HOME}/.dircolors" ]]; then
-	eval "$(dircolors -b "${HOME}/.dircolors")" || eval "$(dircolors -b)"
+if hash dircolors &>/dev/null; then
+	source <(dircolors -b "${HOME}/.dircolors" 2>/dev/null || dircolors -b)
 fi
 
 # bash-preexec goes here

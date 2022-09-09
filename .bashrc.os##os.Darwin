@@ -5,7 +5,7 @@ load_brew() {
 	local location
 	for location in /opt/homebrew /usr/local; do
 		if [[ -x "${location}/bin/brew" ]]; then
-			eval "$("${location}/bin/brew" shellenv)"
+			source <("${location}/bin/brew" shellenv)
 			break
 		fi
 	done
