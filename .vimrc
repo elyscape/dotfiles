@@ -259,6 +259,7 @@ augroup CustomFileHandling
   autocmd FileType gitconfig,sh setlocal noexpandtab listchars+=tab:\ \  tabstop=8
   autocmd BufNewFile,BufRead *.git/{,modules/**/}TAG_EDITMSG setlocal textwidth=80
   autocmd FileType diff setlocal noundofile
+  autocmd FileType diff let &background = &background
   autocmd BufNewFile,BufRead *.eyaml setf yaml
   autocmd FileType javascript setlocal foldmethod=syntax
   autocmd FileType go,make,xml setlocal noexpandtab listchars+=tab:\ \  tabstop=4
