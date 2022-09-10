@@ -71,6 +71,7 @@
 	rbu = !"git rebase upstream/\"${1-$(git rev-parse --abbrev-ref HEAD)}\";:"
 	rh = reset --hard
 	ss = -c status.submodulesummary=true status
+	su = submodule update --recursive --remote
 	whitespace = !git --paginate diff-tree --check $(git hash-object -t tree /dev/null) HEAD
 [advice]
 	resolveConflict = false

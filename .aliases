@@ -64,6 +64,7 @@ alias grbu='git rbu'
 alias grh='git rh'
 alias gs='git status'
 alias gss='git ss'
+alias gsu='git su'
 
 alias title='printf "\033]0;\007"'
 
