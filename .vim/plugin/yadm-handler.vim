@@ -3,7 +3,19 @@ if exists('g:loaded_yadm_handler') || &shell == 'cmd.exe' || &shell == 'command.
 endif
 let g:loaded_yadm_handler = 1
 
+function! s:define_commands()
+  command! -nargs=0 -bar EnableYadmHandler unlet! g:yadm_handler_disabled | call s:EnableYadm()
+  command! -nargs=0 -bar DisableYadmHandler let g:yadm_handler_disabled = 1 | call s:DisableYadm()
+  command! -nargs=+ -complete=command NoYadm silent DisableYadmHandler | <args> | silent EnableYadmHandler
+endfunction
+
 function! s:EnableYadm()
+  if exists('g:yadm_handler_disabled') || exists('b:yadm_handled') || empty(expand('%'))
+    return
+  endif
+
+  let b:yadm_handled = 1
+
   let l:cd_to_parent = 'cd ' . shellescape(resolve(expand('%:p:h'))) . ' && '
   silent let l:in_git_repo = trim(system(l:cd_to_parent . 'git rev-parse --is-inside-work-tree'))
   if l:in_git_repo ==# 'true'
@@ -45,6 +57,8 @@ function! s:DisableYadm()
     call setenv('GIT_WORK_TREE', b:yadm_old_git_work_tree)
     unlet b:yadm_old_git_work_tree
   endif
+
+  unlet! b:yadm_handled
 endfunction
 
 augroup YadmHandler
@@ -53,3 +67,5 @@ augroup YadmHandler
   autocmd BufEnter * call s:EnableYadm()
   autocmd BufLeave * call s:DisableYadm()
 augroup END
+
+call s:define_commands()

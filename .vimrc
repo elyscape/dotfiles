@@ -37,8 +37,8 @@ if filereadable(s:vimrc_local)
 endif
 unlet s:vimrc_local
 
-nmap <Leader>pu :PlugUpdate<CR>
-nmap <Leader>pg :PlugUpgrade<CR>
+nmap <Leader>pu :NoYadm PlugUpdate<CR>
+nmap <Leader>pg :NoYadm PlugUpgrade<CR>
 
 set omnifunc=syntaxcomplete#Complete
 augroup Completions
