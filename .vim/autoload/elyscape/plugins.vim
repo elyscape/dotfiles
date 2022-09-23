@@ -41,6 +41,7 @@ function! elyscape#plugins#Reset()
         \   'isobit/vim-caddyfile',
         \   'kchmck/vim-coffee-script',
         \   'mbbill/undotree',
+        \   'michaeljsmith/vim-indent-object',
         \   'pangloss/vim-javascript',
         \   'rhysd/clever-f.vim',
         \   'rodjek/vim-puppet',
