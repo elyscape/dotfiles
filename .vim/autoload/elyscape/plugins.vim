@@ -37,6 +37,7 @@ function! elyscape#plugins#Reset()
         \   'freeo/vim-kalisi',
         \   'godlygeek/tabular',
         \   'gurpreetatwal/vim-avro',
+        \   'hashivim/vim-terraform',
         \   'isobit/vim-caddyfile',
         \   'kchmck/vim-coffee-script',
         \   'mbbill/undotree',
