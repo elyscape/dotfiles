@@ -18,6 +18,7 @@ if [[ "$(id -u)" -ne 0 ]]; then
 fi
 
 if hash dircolors &>/dev/null; then
+	# shellcheck disable=SC1090
 	source <(dircolors -b "${HOME}/.dircolors" 2>/dev/null || dircolors -b)
 fi
 

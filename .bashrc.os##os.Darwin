@@ -5,6 +5,7 @@ load_brew() {
 	local location
 	for location in /opt/homebrew /usr/local; do
 		if [[ -x "${location}/bin/brew" ]]; then
+			# shellcheck disable=SC1090
 			source <("${location}/bin/brew" shellenv)
 			break
 		fi
@@ -23,7 +24,6 @@ if [[
 	-r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" &&
 	-z "${BASH_COMPLETION_DISABLE:-}"
 ]]; then
-	# shellcheck disable=SC2034
 	source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
 
