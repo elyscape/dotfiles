@@ -12,6 +12,8 @@ if [[ -r "${HOME}/.aliases.local" ]]; then
 	source "${HOME}/.aliases.local"
 fi
 
+alias b64d='base64 -d'
+
 alias chmox='chmod'
 
 alias chownme='chown "${USER}:${GROUPS[0]}"'
