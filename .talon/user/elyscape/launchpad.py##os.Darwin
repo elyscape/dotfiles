@@ -1,0 +1,31 @@
+import sqlite3
+import subprocess
+
+from talon import ui
+
+def nuke_orbs(app):
+    if app.bundle != 'com.apple.AppStore':
+        return
+
+    result = subprocess.run(
+        ['/usr/bin/getconf', 'DARWIN_USER_DIR'],
+        capture_output=True,
+        check=True,
+        text=True,
+    )
+    db = sqlite3.connect(f'/private{result.stdout.strip()}com.apple.dock.launchpad/db/db')
+
+    try:
+        orbs = db.execute('UPDATE items SET flags=(flags & ~0x400) WHERE (flags & 0x400) != 0').rowcount
+
+        if orbs > 0:
+            db.commit()
+            subprocess.run(
+                ['/usr/bin/pkill', '-x', 'Dock'],
+                check=True,
+            )
+
+    finally:
+        db.close()
+
+ui.register('app_close', nuke_orbs)
