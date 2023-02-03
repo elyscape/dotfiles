@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 
+export HOMEBREW_UPDATE_TO_TAG=1
+
 load_brew() {
 	local location
 	for location in /opt/homebrew /usr/local; do
