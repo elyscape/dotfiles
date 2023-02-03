@@ -62,6 +62,8 @@ set selection=exclusive
 set selectmode=mouse,key
 set keymodel=startsel
 
+set spelllang=en_us
+
 if has('gui_running')
   set guioptions-=T   " disable toolbar
   set background=light
@@ -263,6 +265,7 @@ augroup CustomFileHandling
   autocmd FileType go,make,xml setlocal noexpandtab listchars+=tab:\ \  tabstop=4
   autocmd FileType spec setlocal foldmethod=marker
   autocmd FileType caddyfile,sql setlocal tabstop=4
+  autocmd FileType text,markdown setlocal spell
 augroup END
 
 set number
