@@ -90,7 +90,7 @@ lfile() {
 # shellcheck disable=SC2010,SC2262
 if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
 	if hash exa &>/dev/null; then
-		alias ls='exa -Fg'
+		alias ls='exa -Fg --group-directories-first'
 	elif hash lsd &>/dev/null; then
 		alias ls='lsd -F'
 	elif ls --version |& grep 'GNU' -q; then
