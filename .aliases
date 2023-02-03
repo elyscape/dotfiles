@@ -88,13 +88,13 @@ lfile() {
 }
 
 # shellcheck disable=SC2010
-{
+if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
 	if ls --version |& grep 'GNU' -q; then
 		alias ls='ls -F --color=auto --show-control-chars'
 	else
 		alias ls='ls -F -G'
 	fi
-}
+fi
 
 alias ll='ls -l'
 alias l.='ls -d .*'
