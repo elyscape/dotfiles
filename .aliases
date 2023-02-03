@@ -87,12 +87,16 @@ lfile() {
 	"$@" "$lastfile"
 }
 
-# shellcheck disable=SC2010
+# shellcheck disable=SC2010,SC2262
 if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
-	if ls --version |& grep 'GNU' -q; then
+	if hash exa &>/dev/null; then
+		alias ls='exa -Fg'
+	elif hash lsd &>/dev/null; then
+		alias ls='lsd -F'
+	elif ls --version |& grep 'GNU' -q; then
 		alias ls='ls -F --color=auto --show-control-chars'
 	else
-		alias ls='ls -F -G'
+		alias ls='ls -FG'
 	fi
 fi
 
