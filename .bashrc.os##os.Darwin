@@ -29,4 +29,9 @@ if [[
 	source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
 
+if hash op &>/dev/null; then
+	# shellcheck disable=SC1090
+	source <(op completion bash)
+fi
+
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
