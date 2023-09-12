@@ -31,6 +31,7 @@ function! elyscape#plugins#Reset()
         \   'Vimjas/vim-python-pep8-indent',
         \   'airblade/vim-gitgutter',
         \   'cespare/vim-toml',
+        \   'chrisbra/matchit',
         \   'editorconfig/editorconfig-vim',
         \   'ekalinin/Dockerfile.vim',
         \   'elyscape/vim-winjumplist',
@@ -58,7 +59,6 @@ function! elyscape#plugins#Reset()
         \   'vim-airline/vim-airline-themes',
         \   'vim-python/python-syntax',
         \   'vim-ruby/vim-ruby',
-        \   'vim-scripts/matchit.zip',
         \   'vim-scripts/restore_view.vim',
         \ ]
 endfunction
