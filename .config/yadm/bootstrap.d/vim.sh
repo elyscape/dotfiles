@@ -13,4 +13,4 @@ curl -fsSL \
 	--create-dirs \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-vim '+PlugUpdate' '+qall' 2>/dev/null
+vim '+PlugUpdate' '+qall' &>/dev/null <<< ''

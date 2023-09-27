@@ -19,7 +19,6 @@ if [[ ! -d "$ITERM_DIR" ]]; then
 	curl -fsSL \
 		'https://iterm2.com/shell_integration/install_shell_integration_and_utilities.sh' \
 		| bash
-	source "${HOME}/.iterm2_shell_integration.bash"
 fi
 
 if [[ "$PREFS_PATH" != "$ITERM_DIR" ]]; then
