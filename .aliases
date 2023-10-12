@@ -87,10 +87,14 @@ lfile() {
 	"$@" "$lastfile"
 }
 
-# shellcheck disable=SC2010,SC2262
+# shellcheck disable=SC2010,SC2139,SC2262
 if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
-	if hash exa &>/dev/null; then
-		alias ls='exa -Fg --group-directories-first'
+	EXA_OPTIONS='-Fg --group-directories-first'
+
+	if hash eza &>/dev/null; then
+		alias ls="eza ${EXA_OPTIONS}"
+	elif hash exa &>/dev/null; then
+		alias ls="exa ${EXA_OPTIONS}"
 	elif hash lsd &>/dev/null; then
 		alias ls='lsd -F'
 	elif ls --version |& grep 'GNU' -q; then
@@ -98,6 +102,8 @@ if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
 	else
 		alias ls='ls -FG'
 	fi
+
+	unset EXA_OPTIONS
 fi
 
 alias ll='ls -l'
