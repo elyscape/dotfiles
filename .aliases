@@ -12,7 +12,11 @@ if [[ -r "${HOME}/.aliases.local" ]]; then
 	source "${HOME}/.aliases.local"
 fi
 
-alias b64d='base64 -d'
+if hash step &>/dev/null; then
+	alias b64d='step base64 -d'
+else
+	alias b64d='base64 -d'
+fi
 
 alias chmox='chmod'
 
