@@ -25,6 +25,10 @@ alias chownrme='chown -R "${USER}:${GROUPS[0]}"'
 alias schownme='sudo chown "${USER}:${GROUPS[0]}"'
 alias schownrme='sudo chown -R "${USER}:${GROUPS[0]}"'
 
+if ! alias cp &>/dev/null; then
+	alias cp='cp -i'
+fi
+
 if ! alias rm &>/dev/null; then
 	alias rm='rm -i'
 fi
