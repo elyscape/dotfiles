@@ -38,7 +38,7 @@ dirsize() {
 	fi
 
 	/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -S "$target" |
-		sed -E 's/.*total size: ([0-9]*) .*/\1/' |
+		sed -nE 's/.*(total|physical) size: ([0-9]*)($| .*)/\2/p' |
 		numfmt --to=iec-i --suffix=B
 }
 complete -d dirsize
