@@ -36,6 +36,10 @@ if [[ -r "${HOME}/.aliases" ]]; then
 	source "${HOME}/.aliases"
 fi
 
+if hash rg &>/dev/null; then
+	export RIPGREP_CONFIG_PATH="${HOME}/.config/rg/config"
+fi
+
 unset BASH_COMPLETION_DISABLE
 
 if [[ -d "${HOME}/bin" ]]; then
