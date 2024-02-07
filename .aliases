@@ -122,6 +122,10 @@ if [[ -n "${BASH_COMPLETION_DISABLE:-}" ]]; then
 	return 0
 fi
 
+if hash batman &>/dev/null; then
+	complete -F _man batman
+fi
+
 # shellcheck disable=SC1094,SC2034
 {
 	COMPAL_AUTO_UNMASK='1'
