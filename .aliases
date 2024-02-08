@@ -123,7 +123,8 @@ if [[ -n "${BASH_COMPLETION_DISABLE:-}" ]]; then
 fi
 
 if hash batman &>/dev/null; then
-	complete -F _man batman
+	alias batman='batman'
+	__compal__overrides["batman"]="alias batman='man'"
 fi
 
 # shellcheck disable=SC1094,SC2034
