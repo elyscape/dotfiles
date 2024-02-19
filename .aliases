@@ -97,7 +97,7 @@ lfile() {
 
 # shellcheck disable=SC2010,SC2139,SC2262
 if [[ -z "${BASH_ALIASES[ls]:-}" ]]; then
-	EXA_OPTIONS='-Fg --group-directories-first'
+	EXA_OPTIONS='-F -g --group-directories-first'
 
 	if hash eza &>/dev/null; then
 		alias ls="eza ${EXA_OPTIONS}"
