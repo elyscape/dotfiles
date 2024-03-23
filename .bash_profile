@@ -17,10 +17,20 @@ if [[ "$(id -u)" -ne 0 ]]; then
 	fi
 fi
 
-if hash dircolors &>/dev/null; then
-	# shellcheck disable=SC1090
-	source <(dircolors -b "${HOME}/.dircolors" 2>/dev/null || dircolors -b)
-fi
+setup_dircolors() {
+	local dcexec
+	for dcexec in dircolors gdircolors; do
+		if hash "$dcexec" &>/dev/null; then
+			# shellcheck disable=SC1090
+			source <("$dcexec" -b "${HOME}/.dircolors" 2>/dev/null \
+				|| "$dcexec" -b)
+			break
+		fi
+	done
+
+	unset setup_dircolors
+}
+setup_dircolors
 
 # bash-preexec goes here
 # preexec() { printf '\033]0;%s@%s:%s — %s\007' "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}" "${1}" ; }
