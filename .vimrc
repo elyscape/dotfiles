@@ -214,7 +214,7 @@ if s:use_ale
         \   'sh': [
         \     'shfmt',
         \   ],
-        \   'tf': [
+        \   'terraform': [
         \     'terraform',
         \   ],
         \ }
