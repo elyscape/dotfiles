@@ -36,6 +36,6 @@ setup_dircolors
 # preexec() { printf '\033]0;%s@%s:%s — %s\007' "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}" "${1}" ; }
 # precmd() { printf '\033]0;%s@%s:%s — %s\007' "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}" "${0}" ; }
 
-if [[ -r "${HOME}/.iterm2_shell_integration.bash" ]]; then
+if [[ "${LC_TERMINAL:-}" == iTerm* && -r "${HOME}/.iterm2_shell_integration.bash" ]]; then
 	source "${HOME}/.iterm2_shell_integration.bash"
 fi
