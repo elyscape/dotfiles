@@ -6,8 +6,11 @@ if hash pstree &>/dev/null; then
 	alias pstree='pstree -g 3'
 fi
 
+# shellcheck disable=SC1090
 if [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then
 	alias tailscale=/Applications/Tailscale.app/Contents/MacOS/Tailscale
+	source <(/Applications/Tailscale.app/Contents/MacOS/Tailscale completion bash)
+	__compal__ignore_aliases+=('tailscale')
 fi
 
 alias prl_lsrm='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -R -u ~/Applications\ \(Parallels\)'
